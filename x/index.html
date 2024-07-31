@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaçan Buton</title>
+    <style>
+        #escape-button {
+            position: absolute;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <button id="escape-button">Beni Yakalayamazsın!</button>
+
+    <script>
+        $(document).ready(function() {
+            // Butonun fare üzerine geldiğinde kaçarak konum değiştirmesi
+            $('#escape-button').mouseenter(function() {
+                var maxX = $(window).width() - $(this).outerWidth();
+                var maxY = $(window).height() - $(this).outerHeight();
+                var newLeft = Math.floor(Math.random() * maxX);
+                var newTop = Math.floor(Math.random() * maxY);
+                
+                $(this).css({ left: newLeft + 'px', top: newTop + 'px' });
+            });
+
+            // Butona tıklama girişimi olduğunda boyutunu küçültme
+            $('#escape-button').mousedown(function() {
+                $(this).css('transform', 'scale(0.8)');
+            });
+
+            // Fare butondan kaldırıldığında boyutunu geri getirme
+            $('#escape-button').mouseup(function() {
+                $(this).css('transform', 'scale(1)');
+            });
+
+            // Fare butondan çıktığında buton rengini değiştir
+            $('#escape-button').mouseout(function() {
+                $(this).css('background-color', '#f44336'); // Kırmızı
+            });
+
+            // Fare tekrar butona geldiğinde buton rengini geri değiştir
+            $('#escape-button').mouseenter(function() {
+                $(this).css('background-color', '#4CAF50'); // Yeşil
+            });
+        });
+    </script>
+</body>
+</html>
